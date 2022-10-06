@@ -1,25 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState} from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const [lastName, setLastName] = useState('');
+const [error, setError] = useState(false);
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if(lastName.length === 0){
+    setError(true)
 }
+  try {
+    setLastName('');
+    console.log('lastName:', lastName);
+  } catch (error) {
+    error()
+  }
+}
+
+return (
+  <div>
+    <form onSubmit={handleSubmit}>
+      <input type="text" placeholder='lastName' name="last_name" value={lastName} onChange={event => setLastName(event.target.value)}/>
+      {error&&lastName.length <= 0 ? <label>Last Name can't be Empty</label> : ""}
+      <button type="submit">Submit form</button>
+    </form>
+  </div>
+);
+};
 
 export default App;
